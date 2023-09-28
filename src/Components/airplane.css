@@ -1,0 +1,39 @@
+.title {
+    font-size: 50px;
+    padding: 20px;
+    color: #fff;
+}
+
+.panel {
+    display: grid;
+    width: 100%;
+    padding: 20px;
+    height: 600px;
+    justify-content: center;
+    grid-template-columns: 1.5fr .5fr;
+}
+
+.container {
+    width: 1000px;
+    height: 600px;
+    margin: auto;
+    position: relative;
+}
+
+.planeImage {
+    width: 100%;
+    height: 600px;
+    object-fit: contain;
+}
+
+li {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: aliceblue;
+}
+
+@media (max-width:450px) {
+    .panel {
+        grid-template-columns: 1fr;
+    }
+}

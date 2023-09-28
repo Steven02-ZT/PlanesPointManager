@@ -1,0 +1,28 @@
+{
+   "planes":[
+    {
+        "id":0,
+        "path":"air1",
+        "model":"plane type",
+        "plane":"plane.jpg"
+    },
+    {
+        "id":1,
+        "path":"air2",
+        "model":"plane type",
+        "plane":"plane.jpg"
+    },
+    {
+        "id":2,
+        "path":"air3",
+        "model":"plane type",
+        "plane":"plane.jpg"
+    },
+    {
+        "id":3,
+        "path":"air4",
+        "model":"plane type",
+        "plane":"plane.jpg"
+    }
+   ]
+}
