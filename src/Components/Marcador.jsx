@@ -1,14 +1,15 @@
 import React from 'react';
 
-function Marcador({ x, y, color, onClick }) {
+function Marcador({state, x, y, onClick }) {
+  const color = state == 0 ?  'red' : 'green'
   const style = {
     position: 'absolute',
     left: `${x}px`,
     top: `${y}px`,
     backgroundColor: color,
-    width: '2%',
-    height: '2%',
-    borderRadius: '50%',
+    width: '15px',
+    height: '15px',
+    borderRadius: '100%',
     cursor: 'pointer',
   };
 

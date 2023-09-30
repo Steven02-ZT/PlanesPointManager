@@ -23,6 +23,30 @@
         "path":"air4",
         "model":"plane type",
         "plane":"plane.jpg"
+    },
+    {
+        "id":4,
+        "path":"air1",
+        "model":"plane type",
+        "plane":"plane.jpg"
+    },
+    {
+        "id":5,
+        "path":"air2",
+        "model":"plane type",
+        "plane":"plane.jpg"
+    },
+    {
+        "id":6,
+        "path":"air3",
+        "model":"plane type",
+        "plane":"plane.jpg"
+    },
+    {
+        "id":7,
+        "path":"air4",
+        "model":"plane type",
+        "plane":"plane.jpg"
     }
    ]
 }

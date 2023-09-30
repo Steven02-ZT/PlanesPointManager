@@ -3,27 +3,27 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import {Link} from 'react-router-dom'
 
 import 'swiper/css';
+import 'swiper/css/grid';
 import 'swiper/css/pagination';
 
-import { Pagination } from 'swiper/modules';
+import { Pagination, Grid } from 'swiper/modules';
+import axios from 'axios';
 
-import planeData from '../assets/planes.json'
-
-const requiredImages = planeData.planes.map(air => `${air.path}/${air.plane}`)
-const importImages = async () => {
-    const images = [];
-    for (const dir of requiredImages) {
-      const path = `../assets/docs/${dir}`;
-      const module = await import(path);
-      images.push(module.default); 
+async function importPlanesDatas() {
+    try {
+        const fileUrl = 'https://raw.githubusercontent.com/Steven02-ZT/PlanesPointManager/master/src/assets/planes.json';
+        const response = await axios.get(fileUrl);
+        return response.data;
+    } catch (error) {
+        console.error('Error al importar los datos de los aviones:', error);
+        return { planes: [] }; // Devuelve un objeto con una matriz vacía en caso de error.
     }
-    return images;
-  };  
-  
+}
+
 
 function Home() {
     const [slidesPerView,setSlidesPerView] = useState(3)
-    const [images, setImages] = useState([]);
+    const [planeData,setPlaneData] = useState(null)
 
     useEffect(() => {
         if(window.innerWidth <= 450){
@@ -32,27 +32,41 @@ function Home() {
             setSlidesPerView(2)
         }
 
-        importImages().then((loadedImages) => {
-            setImages(loadedImages);
-          });
+        async function fetchPlaneData() {
+            const data = await importPlanesDatas();
+            setPlaneData(data);
+        }
+
+        fetchPlaneData();
     },[])
 
     return (
         <div style={styles.container}>
-            <h1 style={styles.title}>Pick your plane.</h1>
-
-            <Swiper slidesPerView={slidesPerView} spaceBetween={30} pagination={{clickable: true,}}
-                modules={[Pagination]} className="mySwiper" style={styles.swiper}>
-                    {planeData && planeData.planes.map((air,index) => (
-                        <SwiperSlide style={styles.swiperSlide} key={air.id}>
-                            <img src={images[index]} alt={air.model} style={styles.image} />
-                            <Link to={`/airplane/${air.id}`}>
-                                <h2 style={styles.subtittle}>{air.model}</h2>
-                            </Link>
-                        </SwiperSlide>
-                    ))}
-            </Swiper>
-        </div>
+        <h1 style={styles.title}>Pick your plane.</h1>
+        <Swiper
+            slidesPerView={slidesPerView}
+            spaceBetween={30}
+            pagination={{ clickable: true }}
+            modules={[Pagination,Grid]}
+            className="mySwiper"
+            style={styles.swiper}
+            grid={{rows:2}}
+        >
+            {planeData &&
+                planeData.planes.map((air, index) => (
+                    <SwiperSlide style={styles.swiperSlide} key={air.id}>
+                        <img
+                            src={`https://raw.githubusercontent.com/Steven02-ZT/PlanesPointManager/master/src/assets/docs/${air.path}/plane.jpg`}
+                            alt={air.model}
+                            style={styles.image}
+                        />
+                        <Link to={`/airplane/${air.id}`}>
+                            <h2 style={styles.subtittle}>{air.model}</h2>
+                        </Link>
+                    </SwiperSlide>
+                ))}
+        </Swiper>
+    </div>
     )
 }
 
@@ -77,7 +91,8 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        position:"relative"
+        position:"relative",
+        height:'250px'
     },
     title:{
         fontSize:'50px',
