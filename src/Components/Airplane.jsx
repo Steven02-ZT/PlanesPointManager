@@ -38,7 +38,7 @@ function verifyFiles(githubFolderUrl) {
 
 async function updateGitHubFile(githubApiFileurl, newContent,sha) {
     try {
-        const authToken = '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';
+        const authToken = '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';
         const response = await axios.put(
             githubApiFileurl,
             {
