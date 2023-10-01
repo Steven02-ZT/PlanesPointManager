@@ -38,7 +38,7 @@ function verifyFiles(githubFolderUrl) {
 
 async function updateGitHubFile(githubApiFileurl, newContent,sha) {
     try {
-        const authToken = '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';
+        const authToken = process.env.GITHUB_AUTH_TOKEN
         const response = await axios.put(
             githubApiFileurl,
             {
@@ -55,7 +55,7 @@ async function updateGitHubFile(githubApiFileurl, newContent,sha) {
 
         return response.data;
     } catch (error) {
-        throw error;
+        throw error
     }
 }
 
